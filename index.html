@@ -59,9 +59,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .cal td button.sel{outline:2px solid var(--pink);outline-offset:-2px}
 .cal td button i{position:absolute;left:50%;bottom:2px;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--pink)}
 .mhead{display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 0 4px;font-size:13px}
-.mhead button{border:none;background:none;color:var(--pink-d);width:36px;height:36px;font-size:15px}
+.mhead button{border:none;background:none;color:var(--pink-d);width:34px;height:30px;font-size:15px}
 .cal .body{padding:0 12px 6px}
-.cal .pick{font-size:11.5px;color:var(--mute);text-align:center;margin:6px 0 4px;min-height:1.3em}
+.cal .pick{font-size:10.5px;color:var(--mute);letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:62%}
+.cal .body{padding:0 12px 10px}
 
 /* dday */
 .dd .body{padding:6px 14px 8px}
@@ -155,10 +156,10 @@ function parseEvents(){
 }
 function ddText(d){ const n=diffDays(today(),d); return n===0?"D-DAY":n>0?`D-${n}`:`D+${-n}`; }
 
-function calHTML(){ return `${showLbl("calendar")}<div class="win cal"><div class="bar"><span>▣</span><b>calendar</b><span class="sp"></span><span class="sq"></span><span class="sq"></span></div>
+function calHTML(){ return `${showLbl("calendar")}<div class="win cal"><div class="bar"><span>▣</span><b>calendar</b><span class="sp"></span><span class="pick" id="mPick"></span></div>
   <div class="body"><div class="mhead"><button id="mPrev" aria-label="이전 달">‹</button><b id="mT"></b><button id="mNext" aria-label="다음 달">›</button></div>
   <table><thead><tr><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr></thead><tbody id="mB"></tbody></table>
-  <div class="pick" id="mPick"></div></div></div>`; }
+  </div></div>`; }
 function startCal(){
   const ev = parseEvents(); let [y,m]=P(today()); let sel=today();
   const render=()=>{ document.getElementById("mT").textContent=`${y}.${String(m).padStart(2,"0")}`;
@@ -169,7 +170,7 @@ function startCal(){
       cur=addD(cur,1);} rows+="</tr>"; if(P(cur)[1]!==m && r>=4) break; }
     document.getElementById("mB").innerHTML=rows;
     const e=ev.filter(x=>x.d===sel).map(x=>x.t);
-    document.getElementById("mPick").textContent = `${sel.replace(/-/g,".")} ${DOW[dow(sel)]}` + (e.length?` · ${e.join(", ")} ♡`:"") + (sel!==today()?` · ${ddText(sel)}`:"");
+    document.getElementById("mPick").textContent = `${P(sel)[1]}.${P(sel)[2]} ${DOW[dow(sel)]}` + (sel!==today()?` · ${ddText(sel)}`:"") + (e.length?` · ${e.join(", ")}`:"");
   };
   document.getElementById("mPrev").onclick=()=>{ m--; if(m<1){m=12;y--;} render(); };
   document.getElementById("mNext").onclick=()=>{ m++; if(m>12){m=1;y++;} render(); };
