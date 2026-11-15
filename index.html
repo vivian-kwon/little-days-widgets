@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>little days widgets ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#f4a7b9;--pink-d:#e47f98;--pink-l:#fde9ee;--pink-xl:#fff5f7;--line:#f3c6d1;--ink:#4a3d42;--mute:#a8979d}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);font-family:"Gowun Dodum",-apple-system,"Apple SD Gothic Neo",sans-serif;font-size:14px;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:14px 10px}
+button{font:inherit;color:inherit;cursor:pointer}
+.lbl{font-family:"Gowun Batang",serif;font-size:15px;text-align:center;margin:0 auto 12px;width:max-content;max-width:100%;padding:0 26px;
+  background:linear-gradient(transparent 55%,#fbdbe3 55%,#fbdbe3 88%,transparent 88%)}
+.win{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 0 #fbe3e9;overflow:hidden}
+.bar{display:flex;align-items:center;gap:6px;padding:7px 10px;background:var(--pink-xl);border-bottom:1px solid var(--line);font-size:11px;color:var(--pink-d);letter-spacing:.06em}
+.bar b{font-weight:700}.bar .sp{flex:1}
+.bar .sq{width:12px;height:12px;border:1px solid var(--line);border-radius:3px;background:#fff}
+.brandmini{font-size:8.5px;letter-spacing:.18em;color:#e8b5c2}
+.foot{font-size:8.5px;letter-spacing:.2em;color:#e8b5c2;text-align:center;padding:2px 0 8px}
+.w{width:100%;max-width:340px}
+.hidden{display:none!important}
+
+/* clock */
+.clock{border-radius:22px;box-shadow:5px 6px 0 #f6dfe5;max-width:270px;margin:0 auto}
+.clock .bar{background:#fff0f3;border:none;padding:10px 14px;font-weight:700}
+.lcd{margin:4px 14px 16px;border:1px solid #ecd6dc;border-radius:12px;padding:18px 8px;text-align:center;
+  background-color:#f5f2f3;background-image:linear-gradient(#e9e4e6 1px,transparent 1px),linear-gradient(90deg,#e9e4e6 1px,transparent 1px);background-size:9px 9px}
+.lcd .hm{font-family:"DotGothic16",monospace;font-size:44px;letter-spacing:.04em;color:#56514f;line-height:1}
+.lcd .ap{font-family:"DotGothic16";font-size:13px;color:var(--pink-d);margin-left:4px}
+.lcd .sec{font-family:"DotGothic16";font-size:12px;color:#9c8f93;margin-top:8px;letter-spacing:.1em}
+
+/* mascot */
+.mascot{display:flex;flex-direction:column;align-items:center;gap:8px}
+.mascot svg{width:140px;height:auto}
+.mascot svg .bob{animation:bob 3.2s ease-in-out infinite;transform-origin:100px 120px}
+.mascot svg .hrt{animation:twinkle 2.4s ease-in-out infinite}
+.mascot svg .hrt:nth-child(2){animation-delay:.6s}.mascot svg .hrt:nth-child(3){animation-delay:1.2s}.mascot svg .hrt:nth-child(4){animation-delay:1.8s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.35}}
+.mascot .msg{font-family:"Gowun Batang";font-size:13px;color:#b07a88;text-align:center;min-height:1.4em}
+.mascot button.poke{border:none;background:none;padding:0}
+
+/* home combo */
+.home{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:640px;align-items:center}
+@media (max-width:520px){.home{grid-template-columns:1fr}}
+
+/* calendar */
+.cal table{width:100%;border-collapse:collapse;table-layout:fixed}
+.cal th{font-size:10.5px;font-weight:400;color:var(--mute);padding:5px 0;border:1px solid #f6e0e6;background:#fcf6f8}
+.cal td{border:1px solid #f6e0e6;padding:0;height:36px}
+.cal td button{width:100%;height:100%;min-height:36px;border:none;background:#fff;font-size:12px;position:relative;padding:0}
+.cal td button.o{color:#d9cfd2}.cal td button.we{color:var(--pink-d)}
+.cal td button.today{background:#fde6ec;font-weight:700}
+.cal td button.sel{outline:2px solid var(--pink);outline-offset:-2px}
+.cal td button i{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--pink)}
+.mhead{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0 8px;font-size:13px}
+.mhead button{border:none;background:none;color:var(--pink-d);width:36px;height:36px;font-size:15px}
+.cal .body{padding:0 12px 6px}
+.cal .pick{font-size:11.5px;color:var(--mute);text-align:center;margin-top:8px;min-height:1.3em}
+
+/* dday */
+.dd .body{padding:6px 14px 8px}
+.dd-item{display:flex;align-items:center;gap:12px;padding:10px 2px;border-bottom:1px dashed #f5dbe2}
+.dd-item:last-child{border-bottom:none}
+.dd-item .n{font-family:"DotGothic16";color:var(--pink-d);font-size:18px;min-width:66px}
+.dd-item .t{flex:1;min-width:0;word-break:break-word;font-size:13.5px}
+.dd-item .d{font-size:11px;color:var(--mute)}
+.dd-item.past{opacity:.5}
+.empty{font-size:12px;color:var(--mute);text-align:center;padding:14px 4px;line-height:1.6}
+
+/* week strip */
+.week .body{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:12px}
+.week .dy{text-align:center;padding:8px 0;border-radius:12px;font-size:10px;color:var(--mute);letter-spacing:.08em}
+.week .dy b{display:block;font-family:"DotGothic16";font-size:17px;color:var(--ink);font-weight:400;margin-top:3px}
+.week .dy.we b{color:var(--pink-d)}
+.week .dy.today{background:var(--pink-l);color:var(--pink-d)}
+.week .prog{padding:0 14px 12px;font-size:11px;color:var(--mute);display:flex;align-items:center;gap:8px}
+.week .pbar{flex:1;height:7px;border-radius:9px;background:var(--pink-l);overflow:hidden}
+.week .pbar i{display:block;height:100%;background:var(--pink);border-radius:9px}
+
+/* guide */
+.guide{max-width:560px;font-size:13px;line-height:1.7}
+.guide code{background:var(--pink-xl);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:12px;word-break:break-all}
+.guide li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+(() => {
+"use strict";
+const TZ = "Asia/Seoul";
+const q = new URLSearchParams(location.search);
+const W = (q.get("w") || "").toLowerCase();
+const app = document.getElementById("app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fYMD = new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"});
+const today = () => fYMD.format(new Date());
+const P = s => s.split("-").map(Number);
+const ymd = (y,m,d) => new Date(Date.UTC(y,m-1,d)).toISOString().slice(0,10);
+const addD = (s,n) => { const [y,m,d]=P(s); return ymd(y,m,d+n); };
+const dow = s => { const [y,m,d]=P(s); return new Date(Date.UTC(y,m-1,d)).getUTCDay(); };
+const monday = s => addD(s, -((dow(s)+6)%7));
+const DOW = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+const diffDays = (a,b) => { const [y1,m1,d1]=P(a),[y2,m2,d2]=P(b); return Math.round((Date.UTC(y2,m2-1,d2)-Date.UTC(y1,m1-1,d1))/864e5); };
+const label = q.get("label"); // optional custom label text
+const showLbl = (def) => q.get("nolabel") ? "" : `<div class="lbl">${esc(label || def)}</div>`;
+
+const BUNNY = `<svg viewBox="0 0 200 190" aria-hidden="true">
+  <g fill="#f4a7b9"><path class="hrt" d="M40 40c-6-8 6-14 9-5 3-9 15-3 9 5l-9 9z"/><path class="hrt" d="M152 30c-5-7 5-12 8-4 3-8 13-3 8 4l-8 8z"/><path class="hrt" d="M170 92c-4-5 4-9 6-3 2-6 10-2 6 3l-6 6z"/><path class="hrt" d="M22 100c-4-5 4-9 6-3 2-6 10-2 6 3l-6 6z"/></g>
+  <g class="bob">
+  <g stroke="#6b5a60" stroke-width="3" stroke-linecap="round"><path d="M80 18l4 12"/><path d="M100 14v12"/><path d="M120 18l-4 12"/></g>
+  <ellipse cx="78" cy="58" rx="13" ry="34" fill="#fff" stroke="#efd9df" stroke-width="2" transform="rotate(-12 78 58)"/>
+  <ellipse cx="78" cy="60" rx="6" ry="22" fill="#fbd3dd" transform="rotate(-12 78 60)"/>
+  <ellipse cx="122" cy="58" rx="13" ry="34" fill="#fff" stroke="#efd9df" stroke-width="2" transform="rotate(12 122 58)"/>
+  <ellipse cx="122" cy="60" rx="6" ry="22" fill="#fbd3dd" transform="rotate(12 122 60)"/>
+  <ellipse cx="100" cy="122" rx="56" ry="48" fill="#fff" stroke="#efd9df" stroke-width="2"/>
+  <circle cx="80" cy="118" r="5" fill="#4f4347"/><circle cx="120" cy="118" r="5" fill="#4f4347"/>
+  <circle cx="82" cy="116" r="1.6" fill="#fff"/><circle cx="122" cy="116" r="1.6" fill="#fff"/>
+  <ellipse cx="68" cy="132" rx="9" ry="5" fill="#fbcfd9"/><ellipse cx="132" cy="132" rx="9" ry="5" fill="#fbcfd9"/>
+  <path d="M94 128q6 6 12 0" stroke="#4f4347" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <path d="M93 152c-6-7 5-12 7-4 3-8 13-3 7 4l-7 7z" fill="#f4a7b9"/>
+  </g>
+  <ellipse cx="100" cy="178" rx="42" ry="6" fill="#fbe7ec"/>
+</svg>`;
+const MSGS = ["오늘도 천천히, 하나씩 ♡","작은 일부터 시작해요","물 한 잔 마셨나요?","잘하고 있어요 ♡","쉬는 것도 계획이에요","오늘의 나에게 박수 👏"];
+
+function clockHTML(){ return `${showLbl("today is")}<div class="win clock"><div class="bar"><span id="cDate">♥</span><span class="sp"></span><span>···</span></div>
+  <div class="lcd"><span class="hm" id="cHM">--:--</span><span class="ap" id="cAP"></span><div class="sec" id="cSec">KST</div></div></div>`; }
+function startClock(){
+  const f = new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
+  const tick = () => { const p = Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value]));
+    const t = today(), [,m,d]=P(t);
+    document.getElementById("cHM").textContent = `${p.hour}:${p.minute}`;
+    document.getElementById("cAP").textContent = p.dayPeriod;
+    document.getElementById("cSec").textContent = `${p.second}s · KST`;
+    document.getElementById("cDate").textContent = `♥ ${m}.${d} ${DOW[dow(t)]}`; };
+  tick(); setInterval(tick,1000);
+}
+function mascotHTML(){ return `<div class="mascot"><button class="poke" id="poke" aria-label="토끼 쓰다듬기">${BUNNY}</button><div class="msg" id="msg">${esc(q.get("msg")||MSGS[0])}</div></div>`; }
+function startMascot(){ let i=0; const b=document.getElementById("poke"); if(!b) return;
+  b.onclick=()=>{ if(q.get("msg")) return; i=(i+1)%MSGS.length; document.getElementById("msg").textContent=MSGS[i]; }; }
+
+function parseEvents(){
+  // ?e=제목|2026-12-18;제목2|2027-01-01   (or ?t=제목&d=YYYY-MM-DD)
+  const out=[];
+  (q.get("e")||"").split(";").forEach(s=>{ const [t,d]=s.split("|"); if(t&&/^\d{4}-\d{2}-\d{2}$/.test((d||"").trim())) out.push({t:t.trim(),d:d.trim()}); });
+  if(q.get("t") && /^\d{4}-\d{2}-\d{2}$/.test(q.get("d")||"")) out.push({t:q.get("t"),d:q.get("d")});
+  return out.sort((a,b)=>a.d<b.d?-1:1);
+}
+function ddText(d){ const n=diffDays(today(),d); return n===0?"D-DAY":n>0?`D-${n}`:`D+${-n}`; }
+
+function calHTML(){ return `${showLbl("calendar")}<div class="win cal"><div class="bar"><span>▣</span><b>calendar</b><span class="sp"></span><span class="sq"></span><span class="sq"></span></div>
+  <div class="body"><div class="mhead"><button id="mPrev" aria-label="이전 달">‹</button><b id="mT"></b><button id="mNext" aria-label="다음 달">›</button></div>
+  <table><thead><tr><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th><th>Su</th></tr></thead><tbody id="mB"></tbody></table>
+  <div class="pick" id="mPick"></div></div><div class="foot">LITTLE DAYS</div></div>`; }
+function startCal(){
+  const ev = parseEvents(); let [y,m]=P(today()); let sel=today();
+  const render=()=>{ document.getElementById("mT").textContent=`${y}.${String(m).padStart(2,"0")}`;
+    let cur=monday(ymd(y,m,1)), rows="";
+    for(let r=0;r<6;r++){ rows+="<tr>"; for(let c=0;c<7;c++){ const [,cm,cd]=P(cur), w=dow(cur);
+      const has=ev.some(e=>e.d===cur);
+      rows+=`<td><button data-d="${cur}" class="${cm!==m?"o":""} ${w===0||w===6?"we":""} ${cur===today()?"today":""} ${cur===sel?"sel":""}">${cd}${has?"<i></i>":""}</button></td>`;
+      cur=addD(cur,1);} rows+="</tr>"; if(P(cur)[1]!==m && r>=4) break; }
+    document.getElementById("mB").innerHTML=rows;
+    const e=ev.filter(x=>x.d===sel).map(x=>x.t);
+    document.getElementById("mPick").textContent = `${sel.replace(/-/g,".")} ${DOW[dow(sel)]}` + (e.length?` · ${e.join(", ")} ♡`:"") + (sel!==today()?` · ${ddText(sel)}`:"");
+  };
+  document.getElementById("mPrev").onclick=()=>{ m--; if(m<1){m=12;y--;} render(); };
+  document.getElementById("mNext").onclick=()=>{ m++; if(m>12){m=1;y++;} render(); };
+  document.getElementById("mB").onclick=e=>{ const b=e.target.closest("[data-d]"); if(b){ sel=b.dataset.d; [y,m]=P(sel); render(); } };
+  render();
+}
+function ddHTML(){ return `${showLbl("D-day")}<div class="win dd"><div class="bar"><span>♥</span><b>upcoming events</b><span class="sp"></span><span class="brandmini">LITTLE DAYS</span></div><div class="body" id="ddB"></div></div>`; }
+function startDD(){
+  const ev=parseEvents(), t=today(), keepPast=q.get("past");
+  const list = ev.filter(e=>keepPast || e.d>=t);
+  document.getElementById("ddB").innerHTML = list.length ? list.map(e=>`<div class="dd-item ${e.d<t?"past":""}"><span class="n">${ddText(e.d)}</span><span class="t">${esc(e.t)}<div class="d">${e.d.replace(/-/g,".")} ${DOW[dow(e.d)]}</div></span></div>`).join("")
+    : `<div class="empty">아직 D-day가 없어요.<br>임베드 주소 끝에 <b>&amp;e=제목|2026-12-18</b> 을 붙여 주세요.</div>`;
+  // re-render at midnight KST
+  setInterval(()=>{ if(today()!==t) location.reload(); }, 60000);
+}
+function weekHTML(){ return `${showLbl("this week")}<div class="win week"><div class="bar"><span>✿</span><b id="wkT">week</b><span class="sp"></span><span class="brandmini">LITTLE DAYS</span></div><div class="body" id="wkB"></div><div class="prog"><span>이번 주</span><div class="pbar"><i id="wkP"></i></div><span id="wkN"></span></div></div>`; }
+function startWeek(){
+  const t=today(), mo=monday(t); let h="";
+  for(let i=0;i<7;i++){ const d=addD(mo,i), w=dow(d); h+=`<div class="dy ${w===0||w===6?"we":""} ${d===t?"today":""}">${DOW[w].slice(0,3)}<b>${P(d)[2]}</b></div>`; }
+  document.getElementById("wkB").innerHTML=h;
+  const [,m1,d1]=P(mo), [,m2,d2]=P(addD(mo,6));
+  document.getElementById("wkT").textContent=`week · ${m1}.${d1} – ${m2}.${d2}`;
+  const passed=(dow(t)+6)%7+1; // days elapsed incl. today
+  document.getElementById("wkP").style.width=Math.round(passed/7*100)+"%";
+  document.getElementById("wkN").textContent=`${passed}/7일`;
+  setInterval(()=>{ if(today()!==t) location.reload(); }, 60000);
+}
+
+const base = location.href.split("?")[0];
+const views = {
+  clock:   ()=>{ app.className="w"; app.innerHTML=clockHTML(); startClock(); },
+  mascot:  ()=>{ app.className="w"; app.innerHTML=mascotHTML(); startMascot(); },
+  home:    ()=>{ app.className="home"; app.innerHTML=`<div>${clockHTML()}</div><div>${mascotHTML()}</div>`; startClock(); startMascot(); },
+  calendar:()=>{ app.className="w"; app.innerHTML=calHTML(); startCal(); },
+  dday:    ()=>{ app.className="w"; app.innerHTML=ddHTML(); startDD(); },
+  week:    ()=>{ app.className="w"; app.style.maxWidth="560px"; app.innerHTML=weekHTML(); startWeek(); },
+};
+if(views[W]) views[W]();
+else {
+  app.className="guide";
+  app.innerHTML = `<div class="lbl">little days widgets ♡</div>
+  <p>Notion에서 <b>/embed</b>(임베드) 블록에 아래 주소를 붙여 넣으세요. 이 위젯들은 개인 데이터를 저장하지 않아요.</p>
+  <ul>${["home","clock","mascot","calendar","dday","week"].map(k=>`<li><a href="?w=${k}">${k}</a> — <code>${esc(base)}?w=${k}</code></li>`).join("")}</ul>
+  <p>D-day: <code>?w=dday&amp;e=기말고사|2026-12-18;방학|2026-12-24</code><br>캘린더에 점 표시: <code>?w=calendar&amp;e=…</code> (같은 형식)<br>제목 숨기기: <code>&amp;nolabel=1</code> · 제목 바꾸기: <code>&amp;label=오늘은</code></p>`;
+}
+})();
+</script>
+</body>
+</html>
